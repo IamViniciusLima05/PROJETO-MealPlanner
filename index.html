@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MealPlanner | Cardápio da semana</title>
+  <meta name="description" content="Planeje as refeições da semana, veja a estimativa de calorias e gere a lista de compras automaticamente.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1 class="marca">Meal<span>Planner</span></h1>
+    <nav class="semana-nav" aria-label="Semana">
+      <button class="icone" id="sem-ant" aria-label="Semana anterior">‹</button>
+      <span id="sem-label">—</span>
+      <button class="icone" id="sem-prox" aria-label="Próxima semana">›</button>
+    </nav>
+    <div class="topo__acoes">
+      <button class="btn claro" id="abrir-receitas">📖 Receitas</button>
+      <button class="btn" id="abrir-compras">🛒 <span class="so-desk">Lista de </span>Compras <span class="num" id="n-compras">0</span></button>
+    </div>
+  </header>
+
+  <section class="resumo" id="resumo" aria-label="Resumo da semana"></section>
+
+  <main class="grade-wrap">
+    <div class="grade" id="grade" role="grid" aria-label="Cardápio da semana"></div>
+  </main>
+
+  <dialog id="dlg-slot" aria-labelledby="ds-titulo">
+    <div class="form">
+      <div class="form__topo"><h2 id="ds-titulo">Escolher prato</h2><button class="fechar" data-fechar aria-label="Fechar">×</button></div>
+      <label class="sr" for="busca-rec">Buscar receita</label>
+      <input type="search" id="busca-rec" placeholder="Buscar receita…">
+      <ul class="escolha" id="escolha"></ul>
+      <div class="porcoes"><span>Porções</span><button class="icone" id="porc-menos" aria-label="Menos porções">−</button><b id="porc">1</b><button class="icone" id="porc-mais" aria-label="Mais porções">+</button></div>
+      <div class="form__rodape"><button class="btn perigo" id="limpar-slot">Tirar do cardápio</button><span></span><button class="btn" id="salvar-slot">Colocar no cardápio</button></div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-receitas" aria-labelledby="dr-titulo" class="largo">
+    <div class="form">
+      <div class="form__topo"><h2 id="dr-titulo">Receitas</h2><button class="fechar" data-fechar aria-label="Fechar">×</button></div>
+      <div class="rec-layout">
+        <ul class="rec-lista" id="rec-lista"></ul>
+        <form class="rec-form" id="rec-form" autocomplete="off">
+          <h3 id="rf-titulo">Nova receita</h3>
+          <div class="g2">
+            <label>Nome*<input id="r-nome" required maxlength="50"></label>
+            <label>Tipo<select id="r-tipo"><option value="cafe">Café da manhã</option><option value="principal">Prato principal</option><option value="lanche">Lanche</option><option value="sobremesa">Sobremesa</option></select></label>
+            <label>Calorias por porção (kcal)*<input type="number" id="r-kcal" required min="0" max="5000"></label>
+            <label>Rende (porções)<input type="number" id="r-rende" min="1" max="50" value="1"></label>
+          </div>
+          <label>Ingredientes <small>(um por linha: quantidade, unidade e nome — ex.: <code>200 g arroz</code>)</small><textarea id="r-ing" rows="7" placeholder="200 g arroz&#10;2 un ovo&#10;1 colher azeite"></textarea></label>
+          <div class="form__rodape"><button type="button" class="btn perigo" id="r-excluir" hidden>Excluir</button><span></span><button type="button" class="btn claro" id="r-nova">Limpar</button><button class="btn">Salvar receita</button></div>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-compras" aria-labelledby="dc-titulo">
+    <div class="form">
+      <div class="form__topo"><h2 id="dc-titulo">Lista de compras</h2><button class="fechar" data-fechar aria-label="Fechar">×</button></div>
+      <p class="sub" id="compras-sub"></p>
+      <div class="compras" id="compras"></div>
+      <div class="extra-add"><label class="sr" for="extra">Item extra</label><input id="extra" placeholder="Adicionar item extra (ex.: detergente)"><button class="btn claro" id="add-extra">+</button></div>
+      <div class="form__rodape"><button class="btn claro" id="desmarcar">Desmarcar tudo</button><span></span><button class="btn" id="copiar-lista">Copiar lista</button></div>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
